@@ -130,9 +130,9 @@
 }
 .Pizza[data-active="false"] {
   opacity:0;
-  transform: translate3d(0, 16px, 0) scale(2);
+  transform: translate3d(0,16px,0) scale(2);
 }
 .Pizza[data-active="true"] {
   opacity:1;
-  transform: translate3d(0, 0, 0) scale(2);
+  transform: translate3d(0,0,0) scale(2);
 }

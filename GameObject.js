@@ -10,17 +10,15 @@ class GameObject {
       src: config.src || "/images/characters/people/hero.png",
     });
 
+    //These happen once on map startup.
     this.behaviorLoop = config.behaviorLoop || [];
     this.behaviorLoopIndex = 0;
-
     this.talking = config.talking || [];
-
+    this.retryTimeout = null;
   }
 
   mount(map) {
-    console.log("mounting!")
     this.isMounted = true;
-    map.addWall(this.x, this.y);
 
     //If we have a behavior, kick off after a short delay
     setTimeout(() => {
@@ -33,11 +31,23 @@ class GameObject {
 
   async doBehaviorEvent(map) { 
 
-    //Don't do anything if there is a more important cutscene or I don't have config to do anything
-    //anyway.
-    if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {
+    //Don't do anything if I don't have config to do anything
+    if (this.behaviorLoop.length === 0) {
+      return;  
+    }
+
+    if (map.isCutscenePlaying) {
+
+      console.log("Volver a intentar", this.id)
+      if (this.retryTimeout) {
+        clearTimeout(this.retryTimeout);
+      }
+      this.retryTimeout = setTimeout(() => {
+        this.doBehaviorEvent(map);
+      }, 1000)
       return;
     }
+
 
     //Setting up our event with relevant info
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];

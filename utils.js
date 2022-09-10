@@ -27,15 +27,15 @@ const utils = {
     return "up"
   },
 
-  wait(ms){
+  wait(ms) {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve();
+        resolve()
       }, ms)
     })
   },
 
-  randomFromArray(array){
+  randomFromArray(array) {
     return array[ Math.floor(Math.random()*array.length) ]
   },
 

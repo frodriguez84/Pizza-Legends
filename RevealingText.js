@@ -1,14 +1,14 @@
 class RevealingText {
-    constructor(config) {
-        this.element = config.element;
-        this.text = config.text;
-        this.speed = config.speed || 60;
+  constructor(config) {
+    this.element = config.element;
+    this.text = config.text;
+    this.speed = config.speed || 60;
 
-        this.timeout = null;
-        this.isDone = false;
-    }
+    this.timeout = null;
+    this.isDone = false;
+  }
 
-    revealOneCharacter(list) {
+  revealOneCharacter(list) {
     const next = list.splice(0,1)[0];
     next.span.classList.add("revealed");
 
@@ -21,16 +21,15 @@ class RevealingText {
     }
   }
 
-  warpToDone(){
+  warpToDone() {
     clearTimeout(this.timeout);
     this.isDone = true;
     this.element.querySelectorAll("span").forEach(s => {
-        s.classList.add("revealed");
+      s.classList.add("revealed");
     })
   }
 
-
-    init() {
+  init() {
     let characters = [];
     this.text.split("").forEach(character => {
 
@@ -49,4 +48,5 @@ class RevealingText {
     this.revealOneCharacter(characters);
 
   }
-    }
+
+}
